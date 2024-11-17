@@ -1,0 +1,11 @@
+.list-item li{
+    display: flex;
+    justify-content: center;
+    text-decoration: none;  
+}
+.navbar-container{
+    padding: 0;
+}
+.list-item li{
+    text-decoration: none;
+}
