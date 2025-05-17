@@ -1,69 +1,58 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import './style.css'
-
+import axios from "axios";
+import './login.css';
+import Navbar from "../../components/Navbar";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleChangeEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handleChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleLogin = () => {
-    const payload = {
-      username: email,
-      password: password,
-    };
-
-    axios
-      .post("https://api.mudoapi.site/login", payload)
-      .then((res) => {
-        const token = res?.data?.data?.token;
-        localStorage.setItem("access_token", token);
-
-        setSuccess(true);
-        setError(false);
-
-        setTimeout(() => {
-          navigate("/");
-        }, 3000);
-      })
-      .catch((err) => {
-        console.log("err", err?.response);
-        setError(err?.response.data.message);
-        setSuccess("");
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post("https://reqres.in/api/login", {
+        email,
+        password,
       });
+      localStorage.setItem("access_token", response.data.token);
+      setMessage("Login berhasil!");
+      setTimeout(() => navigate("/"), 2000);
+    } catch (error) {
+      setMessage("Login gagal. Email atau password salah.");
+    }
   };
 
   return (
-    <div className="login">
-      <div className="logo">Login</div><br></br>
-      {success && <p>login success</p>}
-      {error && <p>{error}</p>}
-      <input className="input-login" type="text" placeholder="email" onChange={handleChangeEmail} /><br></br>
-      <input className="input-password"
-        type="text"
-        placeholder="password"
-        onChange={handleChangePassword}
-      /><br></br>
-      <button className="buton-login" onClick={handleLogin}>login</button><br></br>
-      <p> belum punya akun?<a className="reg" href="register">Register</a></p>
+    <>
+    <Navbar />
+
+    <div className="auth-container">
+      
+      <div className="auth-box">
+        <h2>Login</h2>
+        {message && <p className="auth-message">{message}</p>}
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button onClick={handleLogin}>Login</button>
+        <p>
+          Belum punya akun? <a href="/register">Register</a>
+        </p>
+      </div>
     </div>
+    </>
+    
   );
 };
 
 export default Login;
-
-// buat halaman register
-// integrasikan api register
-// muncul erorr dan sukses
-// redirect ke halaman login kalau sukses dalam 3 detik

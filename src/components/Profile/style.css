@@ -1,0 +1,104 @@
+/* Container umum */
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* Profile Page */
+.profile-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+}
+
+/* Card Profil */
+.profile-card {
+  background-color: #f9fafb;
+  border-radius: 12px;
+  padding: 30px 40px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 450px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Foto Profil */
+.profile-avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+  border: 3px solid #3b82f6;
+}
+
+/* Nama Profil */
+.profile-name {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #1e293b;
+}
+
+/* Email */
+.profile-email {
+  font-size: 1.1rem;
+  color: #475569;
+  margin-bottom: 25px;
+  word-break: break-word;
+}
+
+/* Tombol */
+.btn {
+  padding: 10px 24px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #2563eb;
+}
+
+/* Pesan Loading dan Error */
+.loading-text, .error-message {
+  font-size: 1.2rem;
+  color: #64748b;
+  text-align: center;
+}
+
+/* Responsif untuk layar kecil */
+@media (max-width: 600px) {
+  .profile-card {
+    padding: 20px;
+    max-width: 320px;
+  }
+
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .profile-name {
+    font-size: 1.4rem;
+  }
+
+  .profile-email {
+    font-size: 1rem;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 12px 0;
+  }
+}

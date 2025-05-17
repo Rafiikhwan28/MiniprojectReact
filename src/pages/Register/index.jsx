@@ -1,76 +1,58 @@
-import axios from "axios";
 import { useState } from "react";
-import './style.css'
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import './register.css';
+import Navbar from "../../components/Navbar";
+
 const Register = () => {
-  const [form, setForm] = useState({
-    name: "",
-    userName: "",
-    password: "",
-    roleId: "",
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = () => {
-    const payload = {
-      ...form,
-      roleId: parseInt(form.roleId),
-    };
-
-    axios
-      .post("https://api.mudoapi.site/register", payload)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
+  const handleRegister = async () => {
+    try {
+      await axios.post("https://reqres.in/api/register", {
+        email,
+        password,
       });
+      setMessage("Registrasi berhasil!...");
+      setTimeout(() => navigate("/login"), 2000);
+    } catch (error) {
+      setMessage("Registrasi gagal. Pastikan data valid.");
+    }
   };
 
   return (
-    <div className="register">
-      <div className="logo">Registrasi</div>
-      <input className="name"
-        type="text"
-        value={form.name}
-        name="name"
-        onChange={handleChange}
-        placeholder="name"
-      /><br></br>
-      <input className="username"
-        type="test"
-        value={form.userName}
-        name="userName"
-        onChange={handleChange}
-        placeholder="username"
-      /><br></br>
-      <input className="password"
-        type="password"
-        value={form.password}
-        name="password"
-        onChange={handleChange}
-        placeholder="password"
-      /><br></br>
-      <input className="role"
-        type="text"
-        value={form.roleId}
-        name="roleId"
-        onChange={handleChange}
-        placeholder="role"
-      /><br></br>
+    <>
+      <Navbar />
+      
+    <div className="auth-container">
 
-      <button className="buton-register" onClick={handleSubmit}>Register</button>
+      <div className="auth-box">
+        <h2>Register</h2>
+        {message && <p className="auth-message">{message}</p>}
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button onClick={handleRegister}>Register</button>
+        <p>
+          Sudah punya akun? <a href="/login">Login</a>
+        </p>
+      </div>
     </div>
+    </>
+    
   );
 };
 
 export default Register;
-
-// protectedRoute
-// Delete
-// Create
