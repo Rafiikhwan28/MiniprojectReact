@@ -1,7 +1,23 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import './style.css';
 
 const Navbar = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("user_id");
+    setIsLoggedIn(false);
+    navigate("/login");
+  };
+
   return (
     <nav className="navbar">
       {/* Logo */}
@@ -18,18 +34,28 @@ const Navbar = () => {
 
       {/* Menu */}
       <ul className="navbar-menu">
-        <li><Link to="/menu-page" className="nav-link">Home</Link></li>
-        <li><Link to="/profile/:id" className="nav-link">Profile</Link></li>
+        {isLoggedIn && (
+          <>
+            <li><Link to="/menu-page" className="nav-link">Home</Link></li>
+            <li><Link to="/profile" className="nav-link">Profile</Link></li>
+          </>
+        )}
       </ul>
 
       {/* Actions */}
       <div className="navbar-actions">
-        <Link to="/register">
-          <button className="btn btn-outline">Register</button>
-        </Link>
-        <Link to="/login">
-          <button className="btn btn-primary">Login</button>
-        </Link>
+        {!isLoggedIn ? (
+          <>
+            <Link to="/register">
+              <button className="btn btn-outline">Register</button>
+            </Link>
+            <Link to="/login">
+              <button className="btn btn-primary">Login</button>
+            </Link>
+          </>
+        ) : (
+          <button className="btn btn-logout" onClick={handleLogout}>Logout</button>
+        )}
       </div>
     </nav>
   );
