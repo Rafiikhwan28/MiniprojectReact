@@ -1,4 +1,4 @@
-/* Navbar Container */
+/* === Navbar Container === */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -10,9 +10,10 @@
   position: sticky;
   top: 0;
   z-index: 1000;
+  flex-wrap: wrap;
 }
 
-/* Logo */
+/* === Logo === */
 .navbar-logo .logo-link {
   display: flex;
   align-items: center;
@@ -24,6 +25,7 @@
   width: 32px;
   height: 32px;
   margin-right: 8px;
+  border-radius: 50%;
 }
 
 .logo-text {
@@ -31,7 +33,7 @@
   font-weight: bold;
 }
 
-/* Menu */
+/* === Menu === */
 .navbar-menu {
   list-style: none;
   display: flex;
@@ -56,13 +58,13 @@
   color: #fff;
 }
 
-/* Action buttons */
+/* === Action Buttons === */
 .navbar-actions {
   display: flex;
   gap: 15px;
 }
 
-/* Button styling */
+/* === Button Styling === */
 .btn {
   padding: 8px 16px;
   border: none;
@@ -93,4 +95,102 @@
 
 .btn-primary:hover {
   background-color: #2563eb;
+}
+
+/* === Logout Button === */
+.btn-logout {
+  background-color: #ef4444;
+  color: white;
+}
+
+.btn-logout:hover {
+  background-color: #dc2626;
+}
+
+/* === Responsive: Tablet and Mobile === */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 20px;
+  }
+
+  .navbar-logo {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar-menu {
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+    margin-top: 10px;
+  }
+
+  .navbar-menu li {
+    width: 100%;
+  }
+
+  .navbar-actions {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Toggle Menu Button (Mobile Only) */
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Responsive Rules */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .navbar-menu,
+  .navbar-actions {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .navbar-menu.open,
+  .navbar-actions.open {
+    display: flex;
+    margin-top: 10px;
+  }
+
+  .navbar {
+    align-items: flex-start;
+  }
+
+  .navbar-menu li {
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .navbar-logo {
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
